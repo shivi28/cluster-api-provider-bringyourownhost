@@ -11,6 +11,7 @@ resources:
 - bases/infrastructure.cluster.x-k8s.io_byomachinetemplates.yaml
 - bases/infrastructure.cluster.x-k8s.io_byoclusters.yaml
 - bases/infrastructure.cluster.x-k8s.io_k8sinstallerconfigs.yaml
+- bases/infrastructure.cluster.x-k8s.io_byoclustertemplates.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
