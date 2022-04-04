@@ -10,8 +10,8 @@ metadata:
 spec:
   group: infrastructure.cluster.x-k8s.io
   names:
-    kind: BYOClusterTemplate
-    listKind: BYOClusterTemplateList
+    kind: ByoClusterTemplate
+    listKind: ByoClusterTemplateList
     plural: byoclustertemplates
     singular: byoclustertemplate
   scope: Namespaced
@@ -19,7 +19,7 @@ spec:
   - name: v1beta1
     schema:
       openAPIV3Schema:
-        description: BYOClusterTemplate is the Schema for the byoclustertemplates
+        description: ByoClusterTemplate is the Schema for the byoclustertemplates
           API.
         properties:
           apiVersion:
@@ -35,11 +35,11 @@ spec:
           metadata:
             type: object
           spec:
-            description: BYOClusterTemplateSpec defines the desired state of BYOClusterTemplate.
+            description: ByoClusterTemplateSpec defines the desired state of ByoClusterTemplate.
             properties:
               template:
-                description: BYOClusterTemplateResource describes the data needed
-                  to create a BYOCluster from a template.
+                description: ByoClusterTemplateResource describes the data needed
+                  to create a ByoCluster from a template.
                 properties:
                   metadata:
                     description: 'Standard object''s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata'

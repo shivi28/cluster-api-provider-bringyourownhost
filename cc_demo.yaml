@@ -1,37 +1,42 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: ClusterClass
 metadata:
-  name: 'test-cc-30-marc-1'
+  name: 'test-cc-3-april-2'
 spec:
   controlPlane:
     ref:
       apiVersion: controlplane.cluster.x-k8s.io/v1beta1
       kind: KubeadmControlPlaneTemplate
-      name: test-cc-30-marc-1-control-plane
+      name: test-cc-3-april-2-control-plane
+      namespace: default
     machineInfrastructure:
       ref:
-        kind: BYOMachineTemplate
+        kind: ByoMachineTemplate
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        name: test-cc-30-marc-1-control-plane
+        name: test-cc-3-april-2-control-plane
+        namespace: default
   infrastructure:
     ref:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-      kind: BYOClusterTemplate
-      name: test-cc-30-marc-1-cluster
+      kind: ByoClusterTemplate
+      name: test-cc-3-april-2-cluster
+      namespace: default
   workers:
     machineDeployments:
-      - class: test-cc-30-marc-1-worker
+      - class: test-cc-3-april-2-worker
         template:
           bootstrap:
             ref:
               apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
               kind: KubeadmConfigTemplate
-              name: test-cc-30-marc-1-worker-bootstraptemplate
+              name: test-cc-3-april-2-worker-bootstraptemplate
+              namespace: default
           infrastructure:
             ref:
               apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-              kind: BYOMachineTemplate
-              name: test-cc-30-marc-1-worker-machinetemplate
+              kind: ByoMachineTemplate
+              name: test-cc-3-april-2-worker-machinetemplate
+              namespace: default
   variables:
     - name: bundleLookupBaseRegistry
       required: true
@@ -61,7 +66,7 @@ spec:
       definitions:
         - selector:
             apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-            kind: BYOClusterTemplate
+            kind: ByoClusterTemplate
             matchResources:
               infrastructureCluster: true
           jsonPatches:
@@ -74,7 +79,7 @@ spec:
       definitions:
         - selector:
             apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-            kind: BYOClusterTemplate
+            kind: ByoClusterTemplate
             matchResources:
               infrastructureCluster: true
           jsonPatches:
@@ -87,7 +92,7 @@ spec:
       definitions:
         - selector:
             apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-            kind: BYOClusterTemplate
+            kind: ByoClusterTemplate
             matchResources:
               infrastructureCluster: true
           jsonPatches:
@@ -111,17 +116,9 @@ spec:
               controlPlane: true
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: BYOClusterTemplate
+kind: ByoClusterTemplate
 metadata:
-  name: 'test-cc-30-marc-1'
-spec:
-  template:
-    spec: {}
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: ByoMachineTemplate
-metadata:
-  name: test-cluster-30-march-1-md-0
+  name: test-cc-3-april-2-cluster
   namespace: default
 spec:
   template:
@@ -130,7 +127,17 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: ByoMachineTemplate
 metadata:
-  name: test-cluster-30-march-1-control-plane
+  name: test-cc-3-april-2-worker-machinetemplate
+  namespace: default
+spec:
+  template:
+    spec: {}
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: ByoMachineTemplate
+metadata:
+  name: test-cc-3-april-2-control-plane
+  namespace: default
 spec:
   template:
     spec: {}
@@ -138,7 +145,8 @@ spec:
 kind: KubeadmControlPlaneTemplate
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 metadata:
-  name: test-cc-30-marc-1-controlplane
+  name: test-cc-3-april-2-control-plane
+  namespace: default
 spec:
   template:
     spec:
@@ -154,8 +162,8 @@ spec:
             extraArgs:
               enable-hostpath-provisioner: "true"
         files:
-        - owner: root:root
-          path: /etc/kubernetes/manifests/kube-vip.yaml
+          - owner: root:root
+            path: /etc/kubernetes/manifests/kube-vip.yaml
         initConfiguration:
           nodeRegistration:
             criSocket: /var/run/containerd/containerd.sock
@@ -180,7 +188,7 @@ spec:
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate
 metadata:
-  name: test-cc-30-marc-1-worker-bootstrap-template
+  name: test-cc-3-april-2-worker-bootstraptemplate
   namespace: default
 spec:
   template:
@@ -190,5 +198,3 @@ spec:
           kubeletExtraArgs:
             cgroup-driver: cgroupfs
             eviction-hard: nodefs.available<0%,nodefs.inodesFree<0%,imagefs.available<0%
-
-

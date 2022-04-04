@@ -8,36 +8,36 @@ import (
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 )
 
-// BYOClusterTemplateSpec defines the desired state of BYOClusterTemplate.
-type BYOClusterTemplateSpec struct {
-	Template BYOClusterTemplateResource `json:"template"`
+// ByoClusterTemplateSpec defines the desired state of ByoClusterTemplate.
+type ByoClusterTemplateSpec struct {
+	Template ByoClusterTemplateResource `json:"template"`
 }
 
 //+kubebuilder:object:root=true
 
-// BYOClusterTemplate is the Schema for the byoclustertemplates API.
-type BYOClusterTemplate struct {
+// ByoClusterTemplate is the Schema for the byoclustertemplates API.
+type ByoClusterTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec BYOClusterTemplateSpec `json:"spec,omitempty"`
+	Spec ByoClusterTemplateSpec `json:"spec,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// BYOClusterTemplateList contains a list of BYOClusterTemplate.
-type BYOClusterTemplateList struct {
+// ByoClusterTemplateList contains a list of ByoClusterTemplate.
+type ByoClusterTemplateList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []BYOClusterTemplate `json:"items"`
+	Items           []ByoClusterTemplate `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&BYOClusterTemplate{}, &BYOClusterTemplateList{})
+	SchemeBuilder.Register(&ByoClusterTemplate{}, &ByoClusterTemplateList{})
 }
 
-// BYOClusterTemplateResource describes the data needed to create a BYOCluster from a template.
-type BYOClusterTemplateResource struct {
+// ByoClusterTemplateResource describes the data needed to create a ByoCluster from a template.
+type ByoClusterTemplateResource struct {
 	// Standard object's metadata.
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	// +optional
