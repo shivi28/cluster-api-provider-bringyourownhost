@@ -1,37 +1,37 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: ClusterClass
 metadata:
-  name: '${CLUSTER_CLASS_NAME}'
+  name: 'cluster-name-30-april-2'
 spec:
   controlPlane:
     ref:
       apiVersion: controlplane.cluster.x-k8s.io/v1beta1
       kind: KubeadmControlPlaneTemplate
-      name: ${CLUSTER_CLASS_NAME}-control-plane
+      name: cluster-name-30-april-2-control-plane
     machineInfrastructure:
       ref:
-        kind: BYOMachineTemplate
+        kind: ByoMachineTemplate
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        name: ${CLUSTER_CLASS_NAME}-worker-bootstrap-template
+        name: cluster-name-30-april-2-control-plane-machine
   infrastructure:
     ref:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-      kind: BYOClusterTemplate
-      name: ${CLUSTER_CLASS_NAME}-cluster
+      kind: ByoClusterTemplate
+      name: cluster-name-30-april-2-cluster
   workers:
     machineDeployments:
-      - class: ${CLUSTER_CLASS_NAME}-worker
+      - class: cluster-name-30-april-2-worker
         template:
           bootstrap:
             ref:
               apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
               kind: KubeadmConfigTemplate
-              name: ${CLUSTER_CLASS_NAME}-worker-bootstraptemplate
+              name: cluster-name-30-april-2-worker-bootstrap-template
           infrastructure:
             ref:
               apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-              kind: BYOMachineTemplate
-              name: ${CLUSTER_CLASS_NAME}-worker-machinetemplate
+              kind: ByoMachineTemplate
+              name: cluster-name-30-april-2-worker-machinetemplate
   variables:
     - name: bundleLookupBaseRegistry
       required: true
@@ -61,7 +61,7 @@ spec:
       definitions:
         - selector:
             apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-            kind: BYOClusterTemplate
+            kind: ByoClusterTemplate
             matchResources:
               infrastructureCluster: true
           jsonPatches:
@@ -74,7 +74,7 @@ spec:
       definitions:
         - selector:
             apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-            kind: BYOClusterTemplate
+            kind: ByoClusterTemplate
             matchResources:
               infrastructureCluster: true
           jsonPatches:
@@ -111,9 +111,9 @@ spec:
               controlPlane: true
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: BYOClusterTemplate
+kind: ByoClusterTemplate
 metadata:
-  name: '${CLUSTER_CLASS_NAME}'
+  name: cluster-name-30-april-2-cluster
 spec:
   template:
     spec: {}
@@ -121,7 +121,7 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: ByoMachineTemplate
 metadata:
-  name: ${CLUSTER_NAME}-md-0
+  name: cluster-name-30-april-2-worker-machinetemplate
   namespace: default
 spec:
   template:
@@ -130,7 +130,7 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: ByoMachineTemplate
 metadata:
-  name: ${CLUSTER_NAME}-control-plane
+  name: cluster-name-30-april-2-control-plane-machine
 spec:
   template:
     spec: {}
@@ -138,7 +138,7 @@ spec:
 kind: KubeadmControlPlaneTemplate
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 metadata:
-  name: ${CLUSTER_CLASS_NAME}-control-plane
+  name: cluster-name-30-april-2-control-plane
 spec:
   template:
     spec:
@@ -180,7 +180,7 @@ spec:
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate
 metadata:
-  name: ${CLUSTER_CLASS_NAME}-worker-bootstrap-template
+  name: cluster-name-30-april-2-worker-bootstrap-template
   namespace: default
 spec:
   template:
