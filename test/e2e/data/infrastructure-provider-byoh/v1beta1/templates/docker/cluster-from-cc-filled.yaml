@@ -1,0 +1,80 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: 'cluster-name-30-april-2'
+  name: 'cluster-name-30-april-2'
+  namespace: 'default'
+spec:
+  clusterNetwork:
+    services:
+      cidrBlocks:
+      - "10.128.0.0/12"
+    pods:
+      cidrBlocks:
+      - "192.168.0.0/16"
+    serviceDomain: "cluster.local"
+  topology:
+    class: "cluster-name-30-april-2"
+    version: v1.21.2
+    controlPlane:
+      metadata: {}
+      replicas: 1
+    variables:
+      - name: bundleLookupBaseRegistry
+        value: "projects.registry.vmware.com/cluster_api_provider_bringyourownhost"
+      - name: bundleLookupTag
+        value: "v0.1.0_alpha.2"
+      - name: controlPlaneIpAddr
+        value: "172.18.0.5"
+      - name: kubeVipPodManifest
+        value: |
+          apiVersion: v1
+          kind: Pod
+          metadata:
+            creationTimestamp: null
+            name: kube-vip
+            namespace: kube-system
+          spec:
+            containers:
+            - args:
+              - start
+              env:
+              - name: vip_arp
+                value: "true"
+              - name: vip_leaderelection
+                value: "true"
+              - name: vip_address
+                value: "172.18.0.5"
+              - name: vip_interface
+                value: ""
+              - name: vip_leaseduration
+                value: "15"
+              - name: vip_renewdeadline
+                value: "10"
+              - name: vip_retryperiod
+                value: "2"
+              image: ghcr.io/kube-vip/kube-vip:v0.3.5
+              imagePullPolicy: IfNotPresent
+              name: kube-vip
+              resources: {}
+              securityContext:
+                capabilities:
+                  add:
+                  - NET_ADMIN
+                  - SYS_TIME
+              volumeMounts:
+              - mountPath: /etc/kubernetes/admin.conf
+                name: kubeconfig
+            hostNetwork: true
+            volumes:
+            - hostPath:
+                path: /etc/kubernetes/admin.conf
+                type: FileOrCreate
+              name: kubeconfig
+    workers:
+      machineDeployments:
+        - class: cluster-name-30-april-2-worker
+          metadata: { }
+          name: md-0
+          replicas: 1
