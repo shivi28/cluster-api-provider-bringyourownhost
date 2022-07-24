@@ -17,7 +17,7 @@ spec:
       - "192.168.0.0/16"
     serviceDomain: "cluster.local"
   topology:
-    class: ${CLUSTER_CLASS_NAME}
+    class: quickstart
     version: ${KUBERNETES_VERSION}
     controlPlane:
       metadata: {}
