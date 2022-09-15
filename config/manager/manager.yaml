@@ -25,8 +25,8 @@ spec:
       containers:
       - env:
         - name: MANUAL_CSR_APPROVAL
-          value: ${MANUAL_CSR_APPROVAL:=false}
-      - command:
+          value: true
+        command:
         - /manager
         args:
         - --enable-leader-election
