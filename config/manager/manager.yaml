@@ -27,7 +27,9 @@ spec:
         - /manager
         env:
           - name: MANUAL_CSR_APPROVAL
-            value: "true"
+            value: ${MANUAL_CSR_APPROVAL:="true"}
+          - name: MANUAL_CSR_APPROVAL_1
+            value: ${MANUAL_CSR_APPROVAL_1}
         args:
         - --enable-leader-election
         - "--metrics-bind-addr=127.0.0.1:8080"
