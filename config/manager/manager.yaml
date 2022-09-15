@@ -26,8 +26,6 @@ spec:
       - command:
         - /manager
         env:
-          - name: MANUAL_CSR_APPROVAL
-            value: ${MANUAL_CSR_APPROVAL:="true"}
           - name: MANUAL_CSR_APPROVAL_1
             value: ${MANUAL_CSR_APPROVAL_1}
         args:
